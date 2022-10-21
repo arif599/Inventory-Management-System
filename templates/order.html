@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+
+{% block title %} edit data {% endblock %}
+
+{% block header %} Edit Data {% endblock %}
+
+{% block body %}
+<script>
+    function calcPrice() {
+        var qty = document.getElementById('quantity').value;
+        var pr = document.getElementById('price_per_unit').value;
+        var tx = document.getElementById('tax').value;
+
+        p = ((qty * pr * (tx / 100)) + (qty * pr)).toFixed(2);
+
+        document.getElementById('total_price').value = p;
+    }
+</script>
+<a href="{{ url_for('index') }}" class="btn btn-primary">Back</a>
+
+<div class="row">
+    <div class="col-sm-6">
+    <br>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Order Information</h5>
+                <form action="/process_order/{{data.id}}" method="POST">
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">#</div>
+                            </div>
+                            <input type="text" id="name" class="form-control" placeholder="Input Name" name="name" value={{ data.name }} readonly>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="quantity">Quantity:</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">#</div>
+                            </div>
+                            <input type="text" id="quantity" class="form-control" placeholder="Input Quantity" name="quantity" onchange="calcPrice()">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Price per Unit:</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">$</div>
+                            </div>
+                            <input type="text" id="price_per_unit" class="form-control" placeholder="{{ data.price }}" name="price_per_unit" value={{ data.price }} readonly>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Tax:</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">%</div>
+                            </div>
+                            <input type="text" id="tax" class="form-control" placeholder="7.25" name="price_per_unit" value=7.25 readonly>
+                        </div>
+                    </div>   
+                    <div class="form-group">
+                        <label for="price">Total Price:</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">$</div>
+                            </div>
+                            <input type="text" id="total_price" class="form-control" placeholder="0" name="total_price" readonly>
+                        </div>
+                    </div> 
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <br>    
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Customer Information</h5>
+                <form action="/process_order/{{data.id}}" method="POST">
+                    <div class="form-group">
+                        <label for="name">First Name:</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">#</div>
+                            </div>
+                            <input type="text" id="fname" class="form-control" placeholder="Input First Name" name="fname">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="quantity">Last Name:</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">#</div>
+                            </div>
+                            <input type="text" id="lname" class="form-control" placeholder="Input Last Name" name="lname">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Address:</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">#</div>
+                            </div>
+                            <input type="text" id="address" class="form-control" placeholder="Input Address" name="address">
+                        </div>
+                    </div>  
+                    <div class="form-group">
+                        <label for="price">Phone Number:</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">#</div>
+                            </div>
+                            <input type="text" id="phone" class="form-control" placeholder="Input Phone Number" name="phone">
+                        </div>
+                    </div> 
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<div class="form-group">
+    <button type="submit" class="btn btn-success btn-sm" name="submit">Submit</button>
+    <button type="reset" class="btn btn-danger btn-sm">Cancel</button>
+</div>
+
+{% endblock %}

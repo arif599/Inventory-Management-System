@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Data - {% block title %} {% endblock%}</title>
+    <title>Data Management System</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
@@ -12,8 +12,9 @@
     <nav class="navbar navbar-light bg-light" style="margin-bottom: 1.5rem;">
         <div class="container">
             <span class="navbar-text">
-                <h3>Data Management System - {% block header %} {% endblock%}</h3>
+                <h3>Data Management System</h3>
             </span>
+            {% include 'navbar.html' %}
         </div>
     </nav>
     <div class="container">

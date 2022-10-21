@@ -5,7 +5,7 @@
 {% block header %} Table Data {% endblock %}
 
 {% block body %}
-    <a href="{{ url_for('input_data') }}" class="btn btn-primary" style="margin-bottom: 1.3rem;">Input Data</a>
+    <a href="{{ url_for('input_data') }}" class="btn btn-primary" style="margin-bottom: 1.3rem;">Add Product</a>
     {% with messages = get_flashed_messages() %}
         {% if messages %}
             {% for message in messages %}
@@ -38,6 +38,7 @@
                     <td>
                         <a href="{{ url_for('edit_data', id=entry.id) }}" class="btn btn-warning">Edit</a>
                         <a href="{{ url_for('delete', id=entry.id) }}" class="btn btn-danger" onclick="return confirm('Are you sure delete this data?')">Delete</a>
+                        <a href="{{ url_for('order_data', id=entry.id) }}" class="btn btn-info">Order</a>
                     </td>
                 </tr>
             {% endfor %}
