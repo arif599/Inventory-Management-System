@@ -96,7 +96,20 @@ def process_order(id):
 
 @app.route('/dashboard')
 def dashboard():
-    return render_template('dashboard.html')
+    cursor.execute("SELECT * FROM sys.inventory;")
+    result = cursor.fetchall()
+    product_summary = []
+    numProducts = 0
+    productCosts = 0
+
+    for row in result:
+        numProducts += int(row[2])
+        productCosts += int(row[2]) * float(row[3])
+
+    product_summary.append(numProducts)
+    product_summary.append("{:.2f}".format(productCosts))
+
+    return render_template('dashboard.html', data=product_summary)
 
 if __name__ == '__main__':
     app.run(debug=True)
