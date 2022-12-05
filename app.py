@@ -74,5 +74,25 @@ def delete(id):
 
     return redirect(url_for('index'))
 
+@app.route('/order/<int:id>')
+def order_data(id):
+    cursor.execute("SELECT * FROM sys.inventory WHERE id = %s", (id,))
+    result = cursor.fetchone()
+    item = Inventory(result[0], result[1], result[2], float(result[3]))
+    return render_template('order.html', data=item)
+
+@app.route('/process_order/<int:id>', methods=['POST', 'GET'])
+def process_order(id):
+    if request.method == 'POST':
+        name = request.form['name']
+        quantity = request.form['quantity']
+        price = request.form['price']
+
+        # cursor.execute("UPDATE sys.inventory SET name = %s, quantity = %s, price = %s WHERE id = %s", (name, quantity, price, id))
+        # mydb.commit()
+        # flash("Order Success")
+
+    return redirect(url_for('index'))
+
 if __name__ == '__main__':
     app.run(debug=True)

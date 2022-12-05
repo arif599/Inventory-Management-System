@@ -5,7 +5,7 @@
 {% block header %} Edit Data {% endblock %}
 
 {% block body %}
-<a href="{{ url_for('index') }}" class="btn btn-primary">Back Home</a>
+<a href="{{ url_for('index') }}" class="btn btn-primary">Back</a>
 <div class="card-body">
     <form action="/process_edit/{{data.id}}" method="POST">
         <div class="form-group">
