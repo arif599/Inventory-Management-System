@@ -28,9 +28,9 @@ class Customer:
         self.phone_number = phone_number
 
 class Order:
-    def __init__(self, order_id, product_name, customer_id, date, total_price):
+    def __init__(self, order_id, product_id, customer_id, date, total_price):
         self.order_id = order_id
-        self.product_name = product_name
+        self.product_id = product_id
         self.customer_id = customer_id
         self.date = date
         self.total_price = total_price
@@ -104,10 +104,10 @@ def order_data(id):
 def process_order(id):
     if request.method == 'POST':
         # decrease the product quantity if there is enough in stock
-        cursor.execute("SELECT name, quantity FROM sys.inventory WHERE id = %s", (id,))
+        cursor.execute("SELECT id, quantity FROM sys.inventory WHERE id = %s", (id,))
         result = cursor.fetchone()
 
-        product_name = result[0]
+        product_id = result[0]
         oldQuantity = int(result[1])
         quantity = oldQuantity - int(request.form['quantity'])
 
@@ -134,7 +134,7 @@ def process_order(id):
         # add the order information to the order table
         product_order = []
         order_id = len(product_orders_dict) + 1
-        product_order.append(product_name)
+        product_order.append(product_id)
         product_order.append(customer_id)
         product_order.append(request.form['order_date'])
         product_order.append(request.form['total_price'])
