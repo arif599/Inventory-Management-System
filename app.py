@@ -39,7 +39,7 @@ def input_data():
 
         cursor.execute("INSERT INTO sys.inventory (name, quantity, price) VALUES (%s, %s, %s)", (name, quantity, price))
         mydb.commit()
-        flash("Input Data Success")
+        flash("Input Data Success", "Success:")
 
         return redirect(url_for('index'))
 
@@ -61,7 +61,7 @@ def process_edit(id):
 
         cursor.execute("UPDATE sys.inventory SET name = %s, quantity = %s, price = %s WHERE id = %s", (name, quantity, price, id))
         mydb.commit()
-        flash("Edit Data Success")
+        flash("Edit Data Success", "Success:")
 
     return redirect(url_for('index'))
 
@@ -70,7 +70,7 @@ def delete(id):
     cursor.execute("DELETE FROM sys.inventory WHERE id = %s", (id,))
     mydb.commit()
 
-    flash('Delete Data Success')
+    flash('Delete Data Success', "Success:")
 
     return redirect(url_for('index'))
 
@@ -84,13 +84,27 @@ def order_data(id):
 @app.route('/process_order/<int:id>', methods=['POST', 'GET'])
 def process_order(id):
     if request.method == 'POST':
-        name = request.form['name']
-        quantity = request.form['quantity']
-        price = request.form['price']
+        # decrease the product quantity if there is enough in stock
+        cursor.execute("SELECT quantity FROM sys.inventory WHERE id = %s", (id,))
+        result = cursor.fetchone()
 
-        # cursor.execute("UPDATE sys.inventory SET name = %s, quantity = %s, price = %s WHERE id = %s", (name, quantity, price, id))
-        # mydb.commit()
-        # flash("Order Success")
+        oldQuantity = int(result[0])
+        quantity = oldQuantity - int(request.form['quantity'])
+
+        if quantity < 0:
+            flash("Not enough products in stock", "Error:")
+            return redirect(url_for('index'))
+
+        cursor.execute("UPDATE sys.inventory SET quantity = %s WHERE id = %s", (quantity, id))
+
+        # add the customer information to the customer table
+
+
+        # add the order information to the order table
+
+
+        mydb.commit()
+        flash("Order Success", "Success:")
 
     return redirect(url_for('index'))
 
