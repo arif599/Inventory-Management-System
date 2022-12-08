@@ -1,0 +1,27 @@
+body{
+    margin:0;
+    padding:0;
+    background-color: antiquewhite;
+    background-size: cover;
+    background-position: center;
+}
+
+.loginbox{
+
+    background: antiquewhite;
+    color: rgb(0, 0, 0);
+    position: relative;
+    text-align: center;
+    box-sizing:border-box;
+}
+
+.loginbox input[type="submit"]
+{
+    border: none;
+    outline: none;
+    height: 40px;
+    background-color: #fb2525;
+    color: #fff;
+    font-size: 18px;
+    border-radius: 20px
+}
